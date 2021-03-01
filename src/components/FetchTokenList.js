@@ -1,10 +1,11 @@
 import React from 'react';
-import { Col, Row, Form, Input, Pagination, PaginationItem, PaginationLink, Table, Button } from 'reactstrap';
+import { Col, Row, Form, Input, Pagination, PaginationItem, PaginationLink, Table, Button, Card, CardBody, CardHeader } from 'reactstrap';
 import _ from 'lodash';
 import { isEmpty } from 'utils/stringutil.js';
 import Scroll from './Scroll';
-import Pool from 'components/Pool';
+import Token from 'components/Token';
 
+import TokenData from 'assets/fakeTokenJSON.json';
 
 import { Collapse } from 'react-collapse';
 import { FormGroup, FormControlLabel, Switch, Checkbox } from '@material-ui/core';
@@ -41,12 +42,12 @@ export default class FetchTokenList extends React.Component {
             searchQuery: "",
             currentPage: 0,
             pageCount: 0,
+            tokens: null,
             //search params
             name: ""
 
         };
     }
-    //be7e2461a584b6532c972edca711fa466d7d0e8a86b6629fc0784ff6
     handleChange = (query) => (e) => {
 
 
@@ -76,26 +77,21 @@ export default class FetchTokenList extends React.Component {
     async componentDidMount() {
 
         await this.getTokenList(this.state.baseUrl + this.state.baseQuery);
-
-        if (this.state.filtersWhereRemoved == false) {
-            this.showFilters(this.state.pools.length);
-        }
     }
 
     async getTokenList(query) {
 
-        if (this.state.multiPoolOperators) {
-            query += "&exclude_splitters=1";
-        }
+        this.setState({ tokens: {}, loading: true })
+        // var response = await fetch(query);
+        // const data = await response.json();
+        // this.state.tokens = data.poolpeek.tokens;
+        console.log("tokens " + TokenData.tokenpeek.tokens[0].name);
 
-        this.setState({ pools: {}, loading: true })
-        var response = await fetch(query);
-        // const response = await fetch(this.state.baseUrl + this.state.searchQuery);
-        const data = await response.json();
-        this.state.pools = data.poolpeek.pools;
-        this.setState({ pools: data.poolpeek.pools, loading: true })
-        this.setState({ query: data.poolpeek.query, loading: true })
-        this.setState({ pageCount: data.poolpeek.query.pageCount, loading: false })
+        this.state.tokens = TokenData.tokenpeek.tokens;
+        this.setState({ tokens: TokenData.tokenpeek.tokens, loading: true });
+
+
+        // this.setState({ query: data.poolpeek.query, loading: false });
     }
 
     mapObject(object, callback) {
@@ -104,227 +100,57 @@ export default class FetchTokenList extends React.Component {
         });
     }
 
-
-
-
-
-
-
-    handleOrderByClick(orderByType) {
-
-        this.clearOrderChecks(orderByType);
-
-        if (orderByType == "tickerOrder" || orderByType == "tickerOrderDescending") {
-            if (orderByType == "tickerOrder") {
-                if (this.state.tickerOrder == false) {
-                    this.state.tickerOrder = true;
-                    this.setState({ tickerOrder: true });
-
-                    this.state.tickerOrderDescending = false;
-                    this.setState({ tickerOrderDescending: false });
-                } else {
-                    this.state.tickerOrder = false;
-                    this.setState({ tickerOrder: false });
-                }
-            }
-            else {
-                if (this.state.tickerOrderDescending == false) {
-                    this.state.tickerOrderDescending = true;
-                    this.setState({ tickerOrderDescending: true });
-
-                    this.state.tickerOrder = false;
-                    this.setState({ tickerOrder: false });
-                } else {
-                    this.state.tickerOrderDescending = false;
-                    this.setState({ tickerOrderDescending: false });
-                }
-            }
-        }
-
-        else if (orderByType == "pledgeOrder" || orderByType == "pledgeOrderDescending") {
-            if (orderByType == "pledgeOrder") {
-                if (this.state.pledgeOrder == false) {
-                    this.state.pledgeOrder = true;
-                    this.setState({ pledgeOrder: true });
-
-                    this.state.pledgeOrderDescending = false;
-                    this.setState({ pledgeOrderDescending: false });
-                } else {
-                    this.state.pledgeOrder = false;
-                    this.setState({ pledgeOrder: false });
-                }
-            }
-            else {
-                if (this.state.pledgeOrderDescending == false) {
-                    this.state.pledgeOrderDescending = true;
-                    this.setState({ pledgeOrderDescending: true });
-
-                    this.state.pledgeOrder = false;
-                    this.setState({ pledgeOrder: false });
-                } else {
-                    this.state.pledgeOrderDescending = false;
-                    this.setState({ pledgeOrderDescending: false });
-                }
-            }
-        }
-        else if (orderByType == "blocksOrder" || orderByType == "blocksOrderDescending") {
-            if (orderByType == "blocksOrder") {
-                if (this.state.blocksOrder == false) {
-                    this.state.blocksOrder = true;
-                    this.setState({ blocksOrder: true });
-
-                    this.state.blocksOrderDescending = false;
-                    this.setState({ blocksOrderDescending: false });
-                } else {
-                    this.state.blocksOrder = false;
-                    this.setState({ blocksOrder: false });
-                }
-            } else {
-                if (this.state.blocksOrderDescending == false) {
-                    this.state.blocksOrderDescending = true;
-                    this.setState({ blocksOrderDescending: true });
-
-                    this.state.blocksOrder = false;
-                    this.setState({ blocksOrder: false });
-                } else {
-                    this.state.blocksOrderDescending = false;
-                    this.setState({ blocksOrderDescending: false });
-                }
-            }
-        }
-
-        else if (orderByType == "activeStakeOrder" || orderByType == "activeStakeOrderDescending") {
-            if (orderByType == "activeStakeOrder") {
-                if (this.state.activeStakeOrder == false) {
-                    this.state.activeStakeOrder = true;
-                    this.setState({ activeStakeOrder: true });
-
-                    this.state.activeStakeOrderDescending = false;
-                    this.setState({ activeStakeOrderDescending: false });
-                } else {
-                    this.state.activeStakeOrder = false;
-                    this.setState({ activeStakeOrder: false });
-                }
-            }
-            else {
-                if (this.state.activeStakeOrderDescending == false) {
-                    this.state.activeStakeOrderDescending = true;
-                    this.setState({ activeStakeOrderDescending: true });
-
-                    this.state.activeStakeOrder = false;
-                    this.setState({ activeStakeOrder: false });
-                } else {
-                    this.state.activeStakeOrderDescending = false;
-                    this.setState({ activeStakeOrderDescending: false });
-                }
-            }
-        }
-        else if (orderByType == "marginOrder" || orderByType == "marginOrderDescending") {
-            if (orderByType == "marginOrder") {
-                if (this.state.marginOrder == false) {
-                    this.state.marginOrder = true;
-                    this.setState({ marginOrder: true });
-
-                    this.state.marginOrderDescending = false;
-                    this.setState({ marginOrderDescending: false });
-                } else {
-                    this.state.marginOrder = false;
-                    this.setState({ marginOrder: false });
-                }
-            } else {
-                if (this.state.marginOrderDescending == false) {
-                    this.state.marginOrderDescending = true;
-                    this.setState({ marginOrderDescending: true });
-
-                    this.state.marginOrder = false;
-                    this.setState({ marginOrder: false });
-                } else {
-                    this.state.marginOrderDescending = false;
-                    this.setState({ marginOrderDescending: false });
-                }
-            }
-
-        }
-
-
-        var orderByList = "";
-        if (this.state.tickerOrder == true) { orderByList += "Ticker,"; }
-        if (this.state.pledgeOrder == true) { orderByList += "Pledge,"; }
-        if (this.state.blocksOrder == true) { orderByList += "Blocks,"; }
-        if (this.state.activeStakeOrder == true) { orderByList += "ActiveStake,"; }
-        if (this.state.marginOrder == true) { orderByList += "Margin,"; }
-        if (this.state.tickerOrderDescending == true) { orderByList += "Ticker(z-a),"; }
-        if (this.state.pledgeOrderDescending == true) { orderByList += "Pledge(z-a),"; }
-        if (this.state.blocksOrderDescending == true) { orderByList += "Blocks(z-a),"; }
-        if (this.state.activeStakeOrderDescending == true) { orderByList += "ActiveStake(z-a),"; }
-        if (this.state.marginOrderDescending == true) { orderByList += "Margin(z-a),"; }
-
-
-        if (orderByList != "") {
-            this.orderBy = "&order=" + orderByList;
-
-            if (this.state.searchQuery !== "") {
-                this.getPoolList(this.state.baseUrl + this.state.baseQuery + this.state.searchQuery + this.orderBy);
-            }
-            else
-                this.getPoolList(this.state.baseUrl + this.state.baseQuery + this.orderBy);
-        } else {
-            this.getPoolList(this.state.baseUrl + this.state.baseQuery + this.state.searchQuery);
-            this.getPoolList(this.state.baseUrl + this.state.baseQuery);
-
-            if (this.state.searchQuery !== "") {
-                this.getPoolList(this.state.baseUrl + this.state.baseQuery + this.state.searchQuery);
-            }
-            else
-                this.getPoolList(this.state.baseUrl + this.state.baseQuery);
-        }
-    }
-
     render() {
         const { currentPage, pageCount } = this.state;
 
-        if (this.state.loading) {
-            return <div>loading...</div>
-        }
+        // if (this.state.loading) {
+        //     return <div>loading...</div>
+        // }
 
-        if (!this.state.pools) {
-            return <div>Pools not found...</div>
-        }
+        // if (!this.state.pools) {
+        //     return <div>Tokens not found...</div>
+        // }
 
         return (
 
             <div className="container-fluid" style={{ align: "left", width: "99%" }}>
 
                 <Scroll showBelow={250} />
-                {this.state.showFilters &&
-                    <div>
-                        <h3><b>Filters:</b></h3>
-                        <Table >
-                            <tbody>
+
+                <Card className="mb-3">
+                    <CardHeader><b>{'Cardano Tokens'}</b></CardHeader>
+                    <Card body>
+                        <Row>
+                            <Col>
+                                <Input
+                                    style={{ fontSize: 14 }}
+                                    type="text"
+                                    className="cr-search-form__input"
+                                    placeholder="Search by Token Name...."
+                                    onChange={this.handleChange("&name=")}
+                                    value={this.state.name}
+                                    placeholderStyle={{ fontFamily: "AnotherFont", borderColor: 'b;ue' }}
+                                />
+                            </Col>
+                        </Row>
+                    </Card>
+                    <Card body>
+                        <Table striped>
+                            <thead>
                                 <tr>
-                                    <td scope="row" style={{ width: "30%" }}>
-                                        <Input
-                                            style={{ fontSize: 14 }}
-                                            type="text"
-                                            className="cr-search-form__input"
-                                            placeholder="Name...."
-                                            onChange={this.handleChange("&name=")}
-                                            value={this.state.name}
-                                        />
-                                    </td>
-
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>PolicyID</th>
                                 </tr>
-                            </tbody>
+                            </thead>
+                            {this.state.tokens &&(
+                            <Token tokens={this.state.tokens} />)}
                         </Table>
-                    </div>}
+                    </Card>
 
-                <p><b>Total tokens:</b> {this.state.query.count}</p>
-                <Row>
-                    <Col>
-                        <Pool pools={this.state.pools} />
-                    </Col>
-                </Row>
 
+                </Card>
             </div >
         );
     }

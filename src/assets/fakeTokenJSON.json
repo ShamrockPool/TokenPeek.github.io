@@ -1,0 +1,36 @@
+{
+    "tokenpeek":{
+       "tokens":[
+          {
+             "name":"BEER",
+             "quantity":"10000000",
+             "policyid":"03961331847b4886a6f39fa99c1d42577f9e188dddd2f918f101d957",
+             "price" : "10"
+          },
+          {
+             "name":"stableUSD",
+             "quantity":"50000000",
+             "policyid":"03961331847b4886a6f39fa99c1d42577f9asdafdw4w563453455553",
+             "price" : "1"
+          },
+          {
+             "name":"SHAToken",
+             "quantity":"2",
+             "policyid":"03961331847b4886a6f39fa99c1d42577f9e188dddd2f918f101d957",
+             "price" : "0"
+          },
+          {
+             "name":"LOCOToken",
+             "quantity":"1",
+             "policyid":"03961331847b4886a6f39fa99c1d42577f9e188dddd2f918f101d957",
+             "price" : "0.5"
+          },
+          {
+             "name":"POOLPEEK",
+             "quantity":"12",
+             "policyid":"03961331847b4886a6f39fa99c1d42577f9e188dddd2f918f101d2347",
+             "price" : "100000000000000000000000"
+          }
+       ]
+    }
+ }

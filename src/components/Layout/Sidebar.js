@@ -81,7 +81,14 @@ class Sidebar extends React.Component {
         <div className={bem.e('content')} style={{alignItems: "center" }}>
       
         <Container>
-          <Row className="justify-content-md-center">
+
+        <Col style={{backgroundColor:'black', padding:'0px'}}>
+              
+              Cardano Native Token Explorer brought to you by LOCO and SHA. 
+             
+            </Col>
+
+          {/* <Row className="justify-content-md-center">
             <Col  style={{backgroundColor: 'black', width:'115px', padding:'0px'}}>
               <img src={logo115_91Image}
                             width="115"
@@ -89,12 +96,8 @@ class Sidebar extends React.Component {
                             className="pr-2"
                             title="Welcome to PoolPeek.com"/>
             </Col>
-            <Col style={{backgroundColor:'black', padding:'0px'}}>
-              
-              A different kind of Cardano Stake Pool Explorer
-             
-            </Col>
-          </Row>
+
+          </Row> */}
         </Container>
 
          

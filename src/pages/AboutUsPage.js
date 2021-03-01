@@ -1,12 +1,7 @@
-import FetchPoolList from 'components/FetchPoolList';
+
 import Page from 'components/Page';
 import React from 'react';
-import ReactHtmlParser from 'react-html-parser';
-import Tooltip from "@material-ui/core/Tooltip";
-import PooltoolImage from 'assets/img/pooltool.png';
-import PoolPmImage from 'assets/img/poolpm.png';
-import AdaPoolImage from 'assets/img/adapools.png';
-import CardanoImage from 'assets/img/cardanoIcon.png';
+
 
 class AboutUsPage extends React.Component {
   state = {
