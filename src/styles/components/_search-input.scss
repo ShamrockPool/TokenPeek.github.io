@@ -1,0 +1,13 @@
+.cr-search-form {
+  position: relative;
+
+  &__icon-search {
+    position: absolute;
+    left: 18px;
+  }
+
+  &__input {
+    /* stylelint-disable-next-line */
+    padding-left: 5px !important;
+  }
+}
