@@ -50,18 +50,8 @@ class Sidebar extends React.Component {
     navAdaFolio: [],
   };
 
-  //get adafolio groups and map to nav options
-  async getAdafolioGroups(){
-    const response = await fetch('https://poolpeek.com/api.asp?k=838967e9-940b-42db-8485-5f82a72a7e17&op=afgroups');
-    const data = await response.json();
-    var dataMap = data.poolpeek.adafolioGroups.map((rec, index) => (
-      {to:'adafolio?adafolioid=' + rec.id + "&qname=" + encodeURIComponent(rec.name), name:ReactHtmlParser(rec.name), exact:false, Icon: MdRadioButtonChecked}  
-    ));
-    this.setState({ navAdaFolio: dataMap});
-  }
-
   async componentDidMount() {
-    this.getAdafolioGroups();    
+  
   };
 
   handleClick = name => () => {
