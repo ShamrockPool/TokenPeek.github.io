@@ -9,25 +9,7 @@ import TokenData from 'assets/fakeTokenJSON.json';
 
 import { Collapse } from 'react-collapse';
 import { FormGroup, FormControlLabel, Switch, Checkbox } from '@material-ui/core';
-const WAIT_INTERVAL = 750
-let queryParams = {
-    "poolid": "",
-    "ticker": "",
-    "name": "",
-    "description": "",
-    "blockfrom": "",
-    "blockto": "",
-    "marginfrom": "",
-    "marginto": "",
-    "pledgefrom": "",
-    "pledgeto": "",
-    "costfrom": "",
-    "costto": "",
-    "activestakefrom": "",
-    "activestaketo": "",
-    "location": ""
-};
-
+const WAIT_INTERVAL = 800
 const sid = Math.floor(Math.random() * 100) + Date.now()
 
 
@@ -37,7 +19,6 @@ export default class FetchTokenList extends React.Component {
         this.state = {
             searchText: null,
             loading: true,
-            baseUrl: "https://poolpeek.com/api.asp?k=838967e9-940b-42db-8485-5f82a72a7e17&sid=" + sid,
             baseQuery: "",
             searchQuery: "",
             currentPage: 0,
@@ -50,45 +31,47 @@ export default class FetchTokenList extends React.Component {
     }
     handleChange = (query) => (e) => {
 
+        var searchValue = e.target.value;
 
-        if (query === "&name=") {
-            queryParams.name = query + e.target.value;
-            this.setState({ name: e.target.value });
-        }
+        this.state.name = e.target.value;
+        this.setState({ name: e.target.value });
 
         clearTimeout(this.inputTimer);
         this.inputTimer = setTimeout((e) => {
-
-            var allQueryParams = "";
-            this.mapObject(queryParams, function (key, value) {
-                if (value !== "") {
-                    allQueryParams += value;
-                }
-            })
-
-            if (allQueryParams) {
-                this.state.searchQuery = allQueryParams;
-                this.getTokenList(this.state.baseUrl + this.state.baseQuery + this.state.searchQuery);
+            if (!isEmpty(searchValue)) {
+                var filteredTokens = this.state.tokens.filter(token => token.name.toLowerCase().includes(searchValue.toLowerCase()));
+                this.state.tokens = filteredTokens;
+                this.setState({ tokens: filteredTokens, loading: false });
+            }
+            else {
+                this.getTokenList();
             }
         }, WAIT_INTERVAL);
     }
 
 
+
     async componentDidMount() {
 
-        await this.getTokenList(this.state.baseUrl + this.state.baseQuery);
+        await this.getTokenList();
     }
 
-    async getTokenList(query) {
+    async getTokenList() {
 
         this.setState({ tokens: {}, loading: true })
-        // var response = await fetch(query);
-        // const data = await response.json();
-        // this.state.tokens = data.poolpeek.tokens;
-        console.log("tokens " + TokenData.tokenpeek.tokens[0].name);
 
-        this.state.tokens = TokenData.tokenpeek.tokens;
-        this.setState({ tokens: TokenData.tokenpeek.tokens, loading: true });
+        // var response = await fetch("http://161.97.156.204:8081/tokens/all");
+        // const data = await response.json();
+        // this.state.tokens = data.tokens;
+        // this.setState({ tokens: data.tokens, loading: true });
+        // console.log("tokens " + this.state.tokens[0].name);
+
+        this.state.tokens = TokenData;
+        this.setState({ tokens: TokenData, loading: false });
+        console.log("tokens " + TokenData[0].name);
+
+        // this.state.tokens = TokenData.tokenpeek.tokens;
+        // this.setState({ tokens: TokenData.tokenpeek.tokens, loading: true });
 
 
         // this.setState({ query: data.poolpeek.query, loading: false });
@@ -103,13 +86,13 @@ export default class FetchTokenList extends React.Component {
     render() {
         const { currentPage, pageCount } = this.state;
 
-        // if (this.state.loading) {
-        //     return <div>loading...</div>
-        // }
+        if (this.state.loading) {
+            return <div>loading...</div>
+        }
 
-        // if (!this.state.pools) {
-        //     return <div>Tokens not found...</div>
-        // }
+        if (!this.state.tokens) {
+            return <div>Tokens not found...</div>
+        }
 
         return (
 
@@ -122,12 +105,13 @@ export default class FetchTokenList extends React.Component {
                     <Card body>
                         <Row>
                             <Col>
+                                <h3>Total Tokens: {this.state.tokens.length}</h3>
                                 <Input
                                     style={{ fontSize: 14 }}
                                     type="text"
                                     className="cr-search-form__input"
                                     placeholder="Search by Token Name...."
-                                    onChange={this.handleChange("&name=")}
+                                    onChange={this.handleChange()}
                                     value={this.state.name}
                                     placeholderStyle={{ fontFamily: "AnotherFont", borderColor: 'b;ue' }}
                                 />
@@ -140,16 +124,14 @@ export default class FetchTokenList extends React.Component {
                                 <tr>
                                     <th>Name</th>
                                     <th>Quantity</th>
-                                    <th>Price</th>
-                                    <th>PolicyID</th>
+                                    {/* <th>Price</th>
+                                    <th>PolicyID</th> */}
                                 </tr>
                             </thead>
-                            {this.state.tokens &&(
-                            <Token tokens={this.state.tokens} />)}
+                            {this.state.tokens && (
+                                <Token tokens={this.state.tokens} />)}
                         </Table>
                     </Card>
-
-
                 </Card>
             </div >
         );
