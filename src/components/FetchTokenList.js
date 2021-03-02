@@ -60,15 +60,15 @@ export default class FetchTokenList extends React.Component {
 
         this.setState({ tokens: {}, loading: true })
 
-        // var response = await fetch("http://161.97.156.204:8081/tokens/all");
-        // const data = await response.json();
-        // this.state.tokens = data.tokens;
-        // this.setState({ tokens: data.tokens, loading: true });
-        // console.log("tokens " + this.state.tokens[0].name);
+        var response = await fetch("http://161.97.156.204:8081/tokens/all");
+        const data = await response.json();
+        this.state.tokens = data;
+        this.setState({ tokens: data, loading: true });
+        console.log("tokens " + this.state.tokens[0].name);
 
-        this.state.tokens = TokenData;
-        this.setState({ tokens: TokenData, loading: false });
-        console.log("tokens " + TokenData[0].name);
+        // this.state.tokens = TokenData;
+        // this.setState({ tokens: TokenData, loading: false });
+        // console.log("tokens " + TokenData[0].name);
 
         // this.state.tokens = TokenData.tokenpeek.tokens;
         // this.setState({ tokens: TokenData.tokenpeek.tokens, loading: true });
