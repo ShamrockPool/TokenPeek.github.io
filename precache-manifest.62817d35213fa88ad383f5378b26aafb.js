@@ -8,12 +8,12 @@ self.__precacheManifest = [
     "url": "https://shamrockpool.github.io/TokenPeek.github.io/static/js/main.3fab6e0f.chunk.js"
   },
   {
-    "revision": "4b072cf49fa769fae5be",
-    "url": "https://shamrockpool.github.io/TokenPeek.github.io/static/js/runtime~main.c20ecdf6.js"
+    "revision": "f61a3e46f8f352f1fe71",
+    "url": "https://shamrockpool.github.io/TokenPeek.github.io/static/js/runtime~main.9c000449.js"
   },
   {
-    "revision": "6365b166c9717c283864",
-    "url": "https://shamrockpool.github.io/TokenPeek.github.io/static/js/2.005ff1df.chunk.js"
+    "revision": "f5995c848b3602febc0a",
+    "url": "https://shamrockpool.github.io/TokenPeek.github.io/static/js/2.3f954f40.chunk.js"
   },
   {
     "revision": "c7fb71658d23b6627179",
@@ -36,7 +36,7 @@ self.__precacheManifest = [
     "url": "https://shamrockpool.github.io/TokenPeek.github.io/static/media/sidebar-4.80d4a4e5.jpg"
   },
   {
-    "revision": "68d13eb9c175f88e9c6fb3e762136cda",
+    "revision": "87703e1a9257285cd8e814a909eafba5",
     "url": "https://shamrockpool.github.io/TokenPeek.github.io/index.html"
   }
 ];
