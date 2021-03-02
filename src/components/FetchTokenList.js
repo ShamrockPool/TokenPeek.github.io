@@ -63,7 +63,7 @@ export default class FetchTokenList extends React.Component {
         var response = await fetch("http://161.97.156.204:8081/tokens/all");
         const data = await response.json();
         this.state.tokens = data;
-        this.setState({ tokens: data, loading: true });
+        this.setState({ tokens: data, loading: false });
         console.log("tokens " + this.state.tokens[0].name);
 
         // this.state.tokens = TokenData;
