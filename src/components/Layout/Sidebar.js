@@ -74,7 +74,7 @@ class Sidebar extends React.Component {
 
         <Col style={{backgroundColor:'black', padding:'0px'}}>
               
-              Cardano Native Token Explorer brought to you by LOCO and SHA. 
+              Cardano Native Token Explorer brought to you by TRAIN and SHA. 
              
             </Col>
 

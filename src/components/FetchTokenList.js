@@ -1,17 +1,13 @@
 import React from 'react';
 import { Col, Row, Form, Input, Pagination, PaginationItem, PaginationLink, Table, Button, Card, CardBody, CardHeader } from 'reactstrap';
+// import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import BootstrapTable from 'react-bootstrap-table-next';
 import _ from 'lodash';
 import { isEmpty } from 'utils/stringutil.js';
 import Scroll from './Scroll';
 import Token from 'components/Token';
-
-import TokenData from 'assets/fakeTokenJSON.json';
-
-import { Collapse } from 'react-collapse';
-import { FormGroup, FormControlLabel, Switch, Checkbox } from '@material-ui/core';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 const WAIT_INTERVAL = 800
-const sid = Math.floor(Math.random() * 100) + Date.now()
-
 
 export default class FetchTokenList extends React.Component {
     constructor(props) {
@@ -28,6 +24,25 @@ export default class FetchTokenList extends React.Component {
             name: ""
 
         };
+
+        this.options = {
+            defaultSortName: 'name',  // default sort column name
+            defaultSortOrder: 'desc'  // default sort order
+        };
+
+        this.columns = [{
+            dataField: 'id',
+            text: 'Product ID',
+            sort: true
+        }, {
+            dataField: 'name',
+            text: 'Product Name',
+            sort: true
+        }, {
+            dataField: 'quantity',
+            text: 'Quantity Minted',
+            sort: true
+        }];
     }
     handleChange = (query) => (e) => {
 
@@ -65,16 +80,6 @@ export default class FetchTokenList extends React.Component {
         this.state.tokens = data;
         this.setState({ tokens: data, loading: false });
         console.log("tokens " + this.state.tokens[0].name);
-
-        // this.state.tokens = TokenData;
-        // this.setState({ tokens: TokenData, loading: false });
-        // console.log("tokens " + TokenData[0].name);
-
-        // this.state.tokens = TokenData.tokenpeek.tokens;
-        // this.setState({ tokens: TokenData.tokenpeek.tokens, loading: true });
-
-
-        // this.setState({ query: data.poolpeek.query, loading: false });
     }
 
     mapObject(object, callback) {
@@ -119,18 +124,20 @@ export default class FetchTokenList extends React.Component {
                         </Row>
                     </Card>
                     <Card body>
-                        <Table striped>
+                        <BootstrapTable keyField='id' data={this.state.tokens} columns={this.columns} />
+
+                        {/* <Table {...{ ['striped']: true }}>
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Quantity</th>
-                                    {/* <th>Price</th>
+                                    <th scope="row" style={{ align: "left", width: "30%", margin: "20px" }}>Name</th>
+                                    <th scope="row" style={{ align: "left", width: "30%", margin: "20px" }}>Quantity</th> */}
+                        {/* <th>Price</th>
                                     <th>PolicyID</th> */}
-                                </tr>
+                        {/* </tr>
                             </thead>
                             {this.state.tokens && (
                                 <Token tokens={this.state.tokens} />)}
-                        </Table>
+                        </Table> */}
                     </Card>
                 </Card>
             </div >

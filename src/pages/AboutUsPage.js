@@ -63,7 +63,7 @@ please consider tipping us:
 
 
           <a href={"https://poolpeek.com/pool/99541BED40B1015A1D81083184973B59A3F50BCE4392492E99FF0BEF"}
-            target="_blank" rel="noreferrer"><p>LOCO:</p></a>
+            target="_blank" rel="noreferrer"><p>TRAIN:</p></a>
 addr1q9z0fjsenn4ne6zjswl3r3k98uuehe7ve7e8649kjsy5yg33myr8mpq6wk3nmqw2hg8v5a6kmlpmk889ye20qussqekslteph6
 <br /><br />
 
